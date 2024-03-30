@@ -17,9 +17,12 @@ from openai_functions_tool_retrieval_agent import agent_executor as openai_funct
 
 add_routes(app, openai_functions_tool_retrieval_agent_chain, path="/openai-functions-tool-retrieval-agent")
 
-#from rag_multi_index_fusion import chain as rag_multi_index_fusion_chain
 
-#add_routes(app, rag_multi_index_fusion_chain, path="/rag-multi-index-fusion")
+from research_assistant import chain as research_assistant_chain
+
+add_routes(app, research_assistant_chain, path="/research-assistant")
+
+
 
 if __name__ == "__main__":
     import uvicorn

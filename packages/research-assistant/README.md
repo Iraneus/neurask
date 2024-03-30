@@ -1,17 +1,19 @@
-# RAG with Multiple Indexes (Fusion)
+# research-assistant
 
-A QA application that queries multiple domain-specific retrievers and selects the most relevant documents from across all retrieved results.
+This template implements a version of  
+[GPT Researcher](https://github.com/assafelovic/gpt-researcher) that you can use
+as a starting point for a research agent.
 
 ## Environment Setup
 
-This application queries PubMed, ArXiv, Wikipedia, and [Kay AI](https://www.kay.ai) (for SEC filings).
+The default template relies on ChatOpenAI and DuckDuckGo, so you will need the 
+following environment variable:
 
-You will need to create a free Kay AI account and [get your API key here](https://www.kay.ai).
-Then set environment variable:
+- `OPENAI_API_KEY`
 
-```bash
-export KAY_API_KEY="<YOUR_API_KEY>"
-```
+And to use the Tavily LLM-optimized search engine, you will need:
+
+- `TAVILY_API_KEY`
 
 ## Usage
 
@@ -24,20 +26,20 @@ pip install -U langchain-cli
 To create a new LangChain project and install this as the only package, you can do:
 
 ```shell
-langchain app new my-app --package rag-multi-index-fusion
+langchain app new my-app --package research-assistant
 ```
 
 If you want to add this to an existing project, you can just run:
 
 ```shell
-langchain app add rag-multi-index-fusion
+langchain app add research-assistant
 ```
 
 And add the following code to your `server.py` file:
 ```python
-from rag_multi_index_fusion import chain as rag_multi_index_fusion_chain
+from research_assistant import chain as research_assistant_chain
 
-add_routes(app, rag_multi_index_fusion_chain, path="/rag-multi-index-fusion")
+add_routes(app, research_assistant_chain, path="/research-assistant")
 ```
 
 (Optional) Let's now configure LangSmith. 
@@ -62,12 +64,12 @@ This will start the FastAPI app with a server is running locally at
 [http://localhost:8000](http://localhost:8000)
 
 We can see all templates at [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
-We can access the playground at [http://127.0.0.1:8000/rag-multi-index-fusion/playground](http://127.0.0.1:8000/rag-multi-index-fusion/playground)  
+We can access the playground at [http://127.0.0.1:8000/research-assistant/playground](http://127.0.0.1:8000/research-assistant/playground)  
 
 We can access the template from code with:
 
 ```python
 from langserve.client import RemoteRunnable
 
-runnable = RemoteRunnable("http://localhost:8000/rag-multi-index-fusion")
+runnable = RemoteRunnable("http://localhost:8000/research-assistant")
 ```
